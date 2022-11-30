@@ -1,13 +1,14 @@
 package hello.core.order;
 
 import hello.core.discount.DiscountPolicy;
+import hello.core.discount.FixDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderSerice{
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
     //private final DiscountPolicy discountPolicy = new FixDiscountPolicy();              //고정할인
     //private final DiscountPolicy discountPolicy = new RateDiscountPolicy();               //비율할인
     //할인 정책을 변경하려면 클라이언트인 FixDiscountPolicy -> RateDiscountPoilcy로 변경 -> OCP위반
@@ -20,7 +21,13 @@ public class OrderServiceImpl implements OrderSerice{
 
     //즉 OCP, DIP 위반
 
-    private DiscountPolicy discountPolicy;                  //구체클레스x 추상화인 인터페이스에만 의존
+    private final DiscountPolicy discountPolicy;                  //구체클레스x 추상화인 인터페이스에만 의존
+
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
         Member member = memberRepository.findById(memberId);
