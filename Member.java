@@ -1,16 +1,11 @@
-package hello.core.member;
+package hello.hellospring.JPA;
 
 public class Member {
+    @Entity
 
+    @Id
     private Long id;
-    private String name;
-    private Grade grade;
-
-    public Member(Long id, String name, Grade grade) {
-        this.id = id;
-        this.name = name;
-        this.grade = grade;
-    }
+    private String namel;
 
     public Long getId() {
         return id;
@@ -20,19 +15,11 @@ public class Member {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNamel() {
+        return namel;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Grade getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Grade grade) {
-        this.grade = grade;
+    public void setNamel(String namel) {
+        this.namel = namel;
     }
 }
